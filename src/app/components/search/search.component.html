@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="content-wrapper">
+      <!-- Карточка с инпутом и кнопкой поиска -->
+      <mat-card class="input-card" [class.shifted]="showContent">
+        <div class="search-input">
+          <input matInput placeholder="Enter movie name" [formControl]="movieNameControl" (keyup.enter)="searchMovies()">
+          <button mat-icon-button (click)="searchMovies()" class="input-button">
+            <mat-icon class="icon">search</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+
+      <!-- Контейнер с загрузчиком, отображается при загрузке данных -->
+      <div class="loader-container" *ngIf="isBusy">
+        <div class="loader"></div>
+      </div>
+
+      <!-- Блок с сообщениями об ошибках для инпута -->
+      <div *ngIf="movieNameControl.invalid && (movieNameControl.dirty || movieNameControl.touched)" class="error-message">
+        <div *ngIf="movieNameControl.hasError('pattern')" class="error">
+          <b>Please enter only Latin characters.</b>
+        </div>
+        <div *ngIf="movieNameControl.hasError('maxlength')" class="error">
+          <b>Max length exceeded (20 characters allowed).</b>
+        </div>
+      </div>
+
+      <!-- Контейнер с результатами поиска фильмов -->
+      <div class="content" [class.shifted-content]="showContent" *ngIf="showContent && !movieNameControl.invalid">
+        <div class="data-container">
+          <mat-card class="content-card">
+            <mat-card-content>
+              <mat-selection-list class="two-column-list">
+                <mat-list-item *ngFor="let movie of searchResults">
+                  <div class="movie-item">
+                    <!-- Изображение фильма или заглушка, если изображение недоступно -->
+                    <img *ngIf="movie.Poster !== 'N/A'" src={{movie.Poster}} class="poster">
+                    <img *ngIf="movie.Poster === 'N/A'" src='./assets/images/no-photo.jpg' class="poster">
+                    <!-- Ссылка на детали фильма -->
+                    <a (click)="goToMovieDetails(movie.imdbID)"><b>{{ movie.Title }}</b></a>
+                  </div>
+                  <hr>
+                </mat-list-item>
+              </mat-selection-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,30 @@
+<div class="main">
+  <!-- Контейнер для отображения загрузчика, который виден только пока данные не готовы к показу -->
+    <div class="loader-container" *ngIf="isBusy">
+      <div class="loader"></div>
+    </div>
+    <div class="wrapper">
+      <div class="container" *ngIf="!isBusy && movieDetails">
+        <div class="poster">
+          <div>
+            <!-- Отображение постера фильма, если доступен -->
+            <img *ngIf="movieDetails.Poster !== 'N/A'" [src]="movieDetails.Poster">
+            <!-- Отображение альтернативного изображения, если постер фильма недоступен -->
+            <img *ngIf="movieDetails.Poster === 'N/A'" src='./assets/images/no-photo.jpg' class="no-img">
+          </div>
+        </div>
+        <div class="content">
+          <h2>{{ movieDetails.Title }}</h2>
+          <div>
+            <p>Year: {{ movieDetails.Year }}</p>
+            <p>Actors: {{ movieDetails.Actors }}</p>
+            <p>Plot: {{ movieDetails.Plot }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Кнопка для возврата к результатам поиска -->
+    <mat-card-actions>
+      <button mat-button (click)="goBack()">Back to Results</button>
+    </mat-card-actions>
+  </div>

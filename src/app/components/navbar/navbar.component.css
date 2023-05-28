@@ -1,0 +1,26 @@
+.mat-toolbar {
+    background: transparent !important;
+    margin: 0 auto !important;
+    height: 80px;
+  }
+  .mat-toolbar-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .container {
+    display: flex;
+    width: 90%;
+  }
+  h1{
+    margin: 0;
+    color: lightgray;
+    font-weight: 700;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  a {
+    cursor: pointer;
+  }
+
+
